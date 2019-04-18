@@ -1,0 +1,23 @@
+.App {
+    padding: 10px 20px;
+    position: relative;
+}
+
+.App .EventSelector {
+    display: block;
+    margin-bottom: 20px;
+}
+
+.App .AppTitle {
+    position: relative;
+}
+
+.App .AppTitle>h1>small {
+    font-size: 16px;
+}
+
+.App .AppSettingsToggle {
+    bottom: 5px;
+    position: absolute;
+    right: 0;
+}
