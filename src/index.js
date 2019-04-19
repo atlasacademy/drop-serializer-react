@@ -5,11 +5,12 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faCog, faCopy, faMinus, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {faCog, faCopy, faMinus, faSpinner, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 library.add(faCog);
 library.add(faCopy);
 library.add(faMinus);
+library.add(faSpinner);
 library.add(faTrashAlt);
 
 ReactDOM.render(<App/>, document.getElementById('root'));

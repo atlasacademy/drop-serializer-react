@@ -14,14 +14,24 @@ class Query {
 
     static setEvent(uid) {
         let params = Query.urlParams();
-        params.set("event", uid);
+
+        if (uid)
+            params.set("event", uid);
+        else
+            params.delete("event");
+
         params.delete("node");
         Query.update("?" + params.toString());
     }
 
     static setNode(uid) {
         let params = Query.urlParams();
-        params.set("node", uid);
+
+        if (uid)
+            params.set("node", uid);
+        else
+            params.delete("node");
+
         Query.update("?" + params.toString());
     }
 

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Alerts from "./Alerts";
 import Button from "react-bootstrap/Button";
 import Event from "./Event";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -7,6 +8,7 @@ import Query from "../lib/Query";
 import Setting from "./Setting";
 import SubmissionsApi from "../lib/SubmissionsApi";
 import './App.css';
+import SubmissionsQueue from "../lib/SubmissionsQueue";
 
 class App extends Component {
     constructor(props) {
@@ -16,19 +18,20 @@ class App extends Component {
 
         this.state = {
             isLoadingEvents: true,
-            isLoadingEvent: true,
+            isLoadingEvent: false,
             eventsData: [],
-            eventData: [],
+            eventData: null,
             selectedEvent: Query.getEvent()
         };
 
         SubmissionsApi.getEvents(events => {
             this.setState({
                 isLoadingEvents: false,
+                isLoadingEvent: this.state.selectedEvent.length > 0,
                 eventsData: events
             });
 
-            if (this.state.selectedEvent) {
+            if (this.state.selectedEvent.length > 0) {
                 SubmissionsApi.getEvent(this.state.selectedEvent, event => {
                     this.setState({
                         isLoadingEvent: false,
@@ -37,6 +40,8 @@ class App extends Component {
                 });
             }
         });
+
+        SubmissionsQueue.scheduleNext(true);
     }
 
     render() {
@@ -53,19 +58,21 @@ class App extends Component {
                     </Button>
                 </div>
 
+                <Alerts/>
                 {this.renderEventSelector()}
                 {this.renderEvent()}
-                <Setting ref={(input) => {
-                    this.setting = input;
-                }} onChange={() => {
-                    this.refreshSettings();
-                }}/>
+                {this.renderSettings()}
+                {this.renderLoading()}
             </div>
         );
     }
 
+    refreshSettings() {
+
+    }
+
     renderEvent() {
-        if (this.state.isLoadingEvent || !this.state.selectedEvent)
+        if (!this.state.selectedEvent || !this.state.eventData)
             return;
 
         return <Event event={this.state.eventData} selected={this.state.selectedEvent}/>;
@@ -92,8 +99,25 @@ class App extends Component {
         );
     }
 
-    refreshSettings() {
+    renderLoading() {
+        if (this.state.isLoadingEvents || this.state.isLoadingEvent)
+            return (
+                <div className="AppLoading">
+                    <div className="AppLoadingContent">
+                        <FontAwesomeIcon icon="spinner" spin/>
+                    </div>
+                </div>
+            );
+    }
 
+    renderSettings() {
+        return (
+            <Setting ref={(input) => {
+                this.setting = input;
+            }} onChange={() => {
+                this.refreshSettings();
+            }}/>
+        );
     }
 
     selectEvent(event) {
@@ -101,13 +125,17 @@ class App extends Component {
 
         Query.setEvent(uid);
         this.setState({
-            isLoadingEvent: true,
+            isLoadingEvent: false,
             eventData: null,
             selectedEvent: uid
         });
 
         if (!uid)
             return;
+
+        this.setState({
+            isLoadingEvent: true
+        });
 
         SubmissionsApi.getEvent(uid, event => {
             this.setState({

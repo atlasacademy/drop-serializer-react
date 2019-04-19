@@ -4,6 +4,7 @@ import Drop from "./Drop";
 import "./Node.css";
 import Storage from "../lib/Storage";
 import Button from "react-bootstrap/Button";
+import SubmissionsQueue from "../lib/SubmissionsQueue";
 
 class Node extends React.Component {
     constructor(props) {
@@ -15,17 +16,11 @@ class Node extends React.Component {
     render() {
         return (
             <div className="Node">
-                <Button variant="success" block onClick={(e) => this.submit()}>
-                    <FontAwesomeIcon icon="copy"/> Submit Run
-                </Button>
                 <div className="DropsContainer">
                     {this.renderDrops()}
                 </div>
                 <Button variant="success" block onClick={(e) => this.submit()}>
                     <FontAwesomeIcon icon="copy"/> Submit Run
-                </Button>
-                <Button variant="danger" block>
-                    <FontAwesomeIcon icon="trash-alt"/> Reset Current Run
                 </Button>
             </div>
         );
@@ -45,6 +40,12 @@ class Node extends React.Component {
         });
     }
 
+    clearDrops() {
+        this.dropRefs.forEach(drop => {
+            drop.setCount(0);
+        });
+    }
+
     submit() {
         let payload = {
             event_uid: this.props.node.event_uid,
@@ -55,11 +56,9 @@ class Node extends React.Component {
             })
         };
 
-        Storage.queueSubmission(payload);
+        SubmissionsQueue.push(payload);
         Storage.clearNodeSession(this.props.node.event_uid, this.props.node.uid);
-        this.dropRefs.forEach(drop => {
-            drop.setCount(0);
-        });
+        this.clearDrops();
     }
 }
 

@@ -6,6 +6,15 @@ class Storage {
         window.localStorage.removeItem(key);
     }
 
+    static getNextSubmission() {
+        let submissions = Storage.getSubmissions();
+
+        if (submissions.length === 0)
+            return null;
+
+        return submissions.shift();
+    }
+
     static getNodeSession(eventUid, eventNodeUid) {
         let key = Storage.makeNodeSessionKey(eventUid, eventNodeUid),
             nodeSession = window.localStorage.getItem(key);
@@ -36,6 +45,12 @@ class Storage {
         return nodeDrop;
     }
 
+    static getSubmissions() {
+        let submissionsRaw = window.localStorage.getItem("submissions");
+
+        return submissionsRaw === null ? [] : JSON.parse(submissionsRaw);
+    }
+
     static getSubmitterName() {
         let submitterName = window.localStorage.getItem("submitter_name");
 
@@ -47,8 +62,7 @@ class Storage {
     }
 
     static queueSubmission(submission) {
-        let submissionsRaw = window.localStorage.getItem("submissions"),
-            submissions = submissionsRaw === null ? [] : JSON.parse(submissionsRaw);
+        let submissions = Storage.getSubmissions();
 
         submissions.push(submission);
 
@@ -76,6 +90,13 @@ class Storage {
     static setSubmitterName(name) {
         window.localStorage.setItem("submitter_name", name);
     }
+
+    static shiftSubmissions() {
+        let submissions = Storage.getSubmissions().slice(1);
+
+        window.localStorage.setItem("submissions", JSON.stringify(submissions));
+    }
+
 }
 
 export default Storage;
