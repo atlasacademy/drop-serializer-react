@@ -22,16 +22,23 @@ class Drop extends React.Component {
             windowListener: null,
             windowPosition: null
         };
-        this.state = Storage.getSessionNodeDrop(
+
+        let sessionDrop = Storage.getSessionNodeDrop(
             props.nodeDrop.event_uid,
             props.nodeDrop.event_node_uid,
             props.nodeDrop.uid,
             props.nodeDrop.quantity
         );
+
+        sessionDrop.showFilter = false;
+
+        this.state = sessionDrop;
     }
 
     render() {
-        let DropIcon = (
+        let ignored = this.state.ignored ? " ignored" : "",
+            showFilter = this.state.showFilter ? " showFilter" : "",
+            DropIcon = (
                 <img className="DropIcon" draggable="false"
                      src={this.props.drop.image}
                      alt={this.props.drop.name}
@@ -61,10 +68,16 @@ class Drop extends React.Component {
                         onMouseUp={(e) => this.doMouseUp(-1)}>
                     <FontAwesomeIcon icon="minus"/>
                 </Button>
+            ),
+            DropToggle = (
+                <div className="DropToggle" onClick={(e) => this.toggleIgnored()}>
+                    <FontAwesomeIcon className="DropToggleIcon"
+                                     icon={this.state.ignored ? "ban" : "check"}/>
+                </div>
             );
 
         return (
-            <div className="Drop">
+            <div className={"Drop" + ignored + showFilter}>
                 <div className="DropBorder">
                     <div className="DropContent">
                         <div className="DropIconBox">
@@ -75,6 +88,7 @@ class Drop extends React.Component {
                         {DropInput}
                         {DropDecrement}
                     </div>
+                    {DropToggle}
                 </div>
             </div>
         );
@@ -118,7 +132,7 @@ class Drop extends React.Component {
             this.props.nodeDrop.uid,
             this.props.nodeDrop.quantity,
             value,
-            false
+            this.state.ignored
         );
 
         this.setState(Storage.getSessionNodeDrop(
@@ -163,6 +177,30 @@ class Drop extends React.Component {
         this.increment.timer = null;
         this.increment.windowListener = null;
         this.increment.running = false;
+    }
+
+    toggleFilter() {
+        this.setState({
+            showFilter: !this.state.showFilter
+        });
+    }
+
+    toggleIgnored() {
+        Storage.setSessionNodeDrop(
+            this.props.nodeDrop.event_uid,
+            this.props.nodeDrop.event_node_uid,
+            this.props.nodeDrop.uid,
+            this.props.nodeDrop.quantity,
+            0,
+            !this.state.ignored
+        );
+
+        this.setState(Storage.getSessionNodeDrop(
+            this.props.nodeDrop.event_uid,
+            this.props.nodeDrop.event_node_uid,
+            this.props.nodeDrop.uid,
+            this.props.nodeDrop.quantity
+        ));
     }
 }
 

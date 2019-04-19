@@ -5,6 +5,8 @@ import "./Node.css";
 import Storage from "../lib/Storage";
 import Button from "react-bootstrap/Button";
 import SubmissionsQueue from "../lib/SubmissionsQueue";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class Node extends React.Component {
     constructor(props) {
@@ -19,9 +21,18 @@ class Node extends React.Component {
                 <div className="DropsContainer">
                     {this.renderDrops()}
                 </div>
-                <Button variant="success" block onClick={(e) => this.submit()}>
-                    <FontAwesomeIcon icon="copy"/> Submit Run
-                </Button>
+                <Row>
+                    <Col>
+                        <Button variant="primary" block onClick={(e) => this.toggleFilter()}>
+                            <FontAwesomeIcon icon="filter"/> Toggle Filter
+                        </Button>
+                    </Col>
+                    <Col>
+                        <Button variant="success" block onClick={(e) => this.submit()}>
+                            <FontAwesomeIcon icon="copy"/> Submit Run
+                        </Button>
+                    </Col>
+                </Row>
             </div>
         );
     }
@@ -33,7 +44,8 @@ class Node extends React.Component {
                 }).shift();
 
             return <Drop key={i}
-                         nodeDrop={nodeDrop} drop={drop}
+                         nodeDrop={nodeDrop}
+                         drop={drop}
                          ref={input => {
                              this.dropRefs.push(input);
                          }}/>
@@ -43,6 +55,12 @@ class Node extends React.Component {
     clearDrops() {
         this.dropRefs.forEach(drop => {
             drop.setCount(0);
+        });
+    }
+
+    toggleFilter() {
+        this.dropRefs.forEach(drop => {
+            drop.toggleFilter();
         });
     }
 

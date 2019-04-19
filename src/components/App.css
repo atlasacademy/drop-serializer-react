@@ -1,5 +1,10 @@
 .App {
     padding: 10px 20px;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
 }
 
 .App .EventSelector {

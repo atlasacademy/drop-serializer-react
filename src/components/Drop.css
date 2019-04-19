@@ -4,6 +4,14 @@
     width: 12.5%;
 }
 
+.Drop.ignored {
+    display: none;
+}
+
+.Drop.ignored.showFilter {
+    display: block;
+}
+
 @media (min-width: 2400px) {
     .Drop { width: calc(100% / 12); }
 }
@@ -31,8 +39,8 @@
 .Drop .DropBorder {
     border: 1px solid black;
     border-radius: 5px;
-    /*margin: 10px;*/
     overflow: auto;
+    position: relative;
     width: 100%;
 }
 
@@ -80,4 +88,28 @@
 .Drop .DropInput {
     margin-bottom: 10px;
     text-align: center;
+}
+
+.Drop .DropToggle {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    display: none;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.Drop.showFilter .DropToggle {
+    display: block;
+}
+
+.Drop .DropToggle .DropToggleIcon {
+    color: #FFFFFF;
+    font-size: 60px;
+    height: 60px;
+    margin: auto;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
