@@ -53,10 +53,23 @@ class App extends Component {
                         Drop Serializer
                         <small>by <a href="https://discord.gg/TKJmuCR">Atlas Academy</a></small>
                     </h1>
-                    <Button variant="info" className="AppSettingsToggle"
+                    <Button variant="primary" className="AppSettingsToggle"
                             onClick={e => this.setting.toggle()}>
                         <FontAwesomeIcon icon="cog"/>
                     </Button>
+
+                    <div className="AppLinks">
+                        <a href="https://github.com/atlasacademy/drop-serializer-react"
+                           className="text-secondary"
+                           target="_blank" rel="noopener noreferrer author">
+                            <FontAwesomeIcon icon={['fab', 'github']}/>
+                        </a>
+                        <a href="https://discord.gg/TKJmuCR"
+                           className="text-secondary"
+                           target="_blank" rel="noopener noreferrer author">
+                            <FontAwesomeIcon icon={['fab', 'discord']}/>
+                        </a>
+                    </div>
                 </div>
 
                 <Alerts/>
