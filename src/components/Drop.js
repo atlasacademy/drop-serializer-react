@@ -113,12 +113,24 @@ class Drop extends React.Component {
             this.stopIncrement();
     }
 
+    doIncrement(amount) {
+        this.setCount(0 + this.state.count + amount);
+
+        this.setState({active: true});
+        setTimeout(() => {
+            this.setState({active: false});
+        }, 50);
+
+        if (this.props.onClick)
+            this.props.onClick();
+    }
+
     doMouseUp(amount) {
         if (!this.increment.running)
             return;
 
         if (this.increment.iterator <= this.increment.intervalSkips)
-            this.setCount(this.state.count + amount);
+            this.doIncrement(amount);
 
         this.stopIncrement();
     }
@@ -133,6 +145,11 @@ class Drop extends React.Component {
     }
 
     setCount(value) {
+        if (typeof value === "string" && value !== "")
+            value = parseInt(value);
+        if (isNaN(value) || value < 0)
+            value = 0;
+
         Storage.setSessionNodeDrop(
             this.props.nodeDrop.event_uid,
             this.props.nodeDrop.event_node_uid,
@@ -148,14 +165,6 @@ class Drop extends React.Component {
             this.props.nodeDrop.uid,
             this.props.nodeDrop.quantity
         ));
-
-        this.setState({active: true});
-        setTimeout(() => {
-            this.setState({active: false});
-        }, 50);
-
-        if (this.props.onChange)
-            this.props.onChange();
     }
 
     startIncrement(e, amount) {
@@ -168,7 +177,7 @@ class Drop extends React.Component {
 
         this.increment.timer = setInterval(function () {
             if (t.increment.iterator > t.increment.intervalSkips)
-                t.setCount(t.state.count + amount);
+                t.doIncrement(amount);
 
             t.increment.iterator++;
         }, this.increment.interval);

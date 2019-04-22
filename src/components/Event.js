@@ -51,7 +51,10 @@ class Event extends React.Component {
         if (!this.state.selectedNode)
             return;
 
-        return <Node node={this.state.node} nodeDrops={this.state.nodeDrops} drops={this.state.drops}/>
+        return <Node node={this.state.node}
+                     nodeDrops={this.state.nodeDrops}
+                     drops={this.state.drops}
+                     onOutdated={this.props.onOutdated}/>
     }
 
     renderNodeSelector() {

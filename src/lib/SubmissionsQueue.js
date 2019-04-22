@@ -15,12 +15,12 @@ class SubmissionsQueue {
         return submission !== null;
     }
 
-    static push(submission) {
+    static push(submission, isMissingDropsCallback) {
         let hasQueued = SubmissionsQueue.hasQueued();
         Storage.queueSubmission(submission);
 
         if (!hasQueued)
-            SubmissionsQueue.sendNext();
+            SubmissionsQueue.sendNext(isMissingDropsCallback);
     }
 
     static scheduleNext(success) {
@@ -36,7 +36,7 @@ class SubmissionsQueue {
         }, success ? successDelay : failureDelay);
     }
 
-    static sendNext() {
+    static sendNext(isMissingDropsCallback) {
         if (pending)
             clearTimeout(timer);
         pending = false;
@@ -52,6 +52,9 @@ class SubmissionsQueue {
         SubmissionsApi.postSubmission(submission, (result) => {
             Messages.push("success", "Created new submission: " + result.receipt);
             Storage.shiftSubmissions();
+
+            if (result.missing_drops && isMissingDropsCallback)
+                isMissingDropsCallback();
 
             SubmissionsQueue.scheduleNext(true);
         }, () => {

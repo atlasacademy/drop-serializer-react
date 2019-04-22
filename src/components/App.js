@@ -9,6 +9,7 @@ import Setting from "./Setting";
 import SubmissionsApi from "../lib/SubmissionsApi";
 import './App.css';
 import SubmissionsQueue from "../lib/SubmissionsQueue";
+import Messages from "../lib/Messages";
 
 class App extends Component {
     constructor(props) {
@@ -71,11 +72,31 @@ class App extends Component {
 
     }
 
+    reloadEvent() {
+        Messages.push("warning", "Event is outdated. Reloading event.");
+
+        this.setState({
+            isLoadingEvent: true,
+            eventData: null
+        });
+
+        SubmissionsApi.getEvent(this.state.selectedEvent, event => {
+            this.setState({
+                isLoadingEvent: false,
+                eventData: event
+            });
+        });
+    }
+
     renderEvent() {
         if (!this.state.selectedEvent || !this.state.eventData)
             return;
 
-        return <Event event={this.state.eventData} selected={this.state.selectedEvent}/>;
+        return <Event event={this.state.eventData}
+                      selected={this.state.selectedEvent}
+                      onOutdated={() => {
+                          this.reloadEvent();
+                      }}/>;
     }
 
     renderEventSelector() {

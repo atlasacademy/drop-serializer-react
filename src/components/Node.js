@@ -50,8 +50,8 @@ class Node extends React.Component {
             return <Drop key={i}
                          nodeDrop={nodeDrop}
                          drop={drop}
-                         onChange={() => {
-                             this.notifyChange();
+                         onClick={() => {
+                             this.notifyClick();
                          }}
                          ref={input => {
                              this.dropRefs.push(input);
@@ -65,7 +65,7 @@ class Node extends React.Component {
         });
     }
 
-    notifyChange() {
+    notifyClick() {
         this.clickSound.play();
         window.navigator.vibrate(100);
     }
@@ -86,7 +86,10 @@ class Node extends React.Component {
             })
         };
 
-        SubmissionsQueue.push(payload);
+        SubmissionsQueue.push(payload, () => {
+            if (this.props.onOutdated)
+                this.props.onOutdated();
+        });
         Storage.clearNodeSession(this.props.node.event_uid, this.props.node.uid);
         this.clearDrops();
     }
