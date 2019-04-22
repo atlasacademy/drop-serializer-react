@@ -31,6 +31,7 @@ class Drop extends React.Component {
         );
 
         sessionDrop.showFilter = false;
+        sessionDrop.active = false;
 
         this.state = sessionDrop;
     }
@@ -38,6 +39,7 @@ class Drop extends React.Component {
     render() {
         let ignored = this.state.ignored ? " ignored" : "",
             showFilter = this.state.showFilter ? " showFilter" : "",
+            active = this.state.active ? " active" : "",
             DropIcon = (
                 <img className="DropIcon" draggable="false"
                      src={this.props.drop.image}
@@ -77,7 +79,7 @@ class Drop extends React.Component {
             );
 
         return (
-            <div className={"Drop" + ignored + showFilter}>
+            <div className={"Drop" + ignored + showFilter + active}>
                 <div className="DropBorder">
                     <div className="DropContent">
                         <div className="DropIconBox">
@@ -122,7 +124,12 @@ class Drop extends React.Component {
     }
 
     getState() {
-        return this.state;
+        return {
+            uid: this.state.uid,
+            quantity: this.state.quantity,
+            count: this.state.count,
+            ignored: this.state.ignored
+        };
     }
 
     setCount(value) {
@@ -141,6 +148,14 @@ class Drop extends React.Component {
             this.props.nodeDrop.uid,
             this.props.nodeDrop.quantity
         ));
+
+        this.setState({active: true});
+        setTimeout(() => {
+            this.setState({active: false});
+        }, 50);
+
+        if (this.props.onChange)
+            this.props.onChange();
     }
 
     startIncrement(e, amount) {

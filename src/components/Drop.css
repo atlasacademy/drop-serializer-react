@@ -37,11 +37,18 @@
 }
 
 .Drop .DropBorder {
+    background-color: #FFFFFF;
     border: 1px solid black;
     border-radius: 5px;
     overflow: auto;
     position: relative;
     width: 100%;
+    transition: background-color 0.2s ease-out;
+}
+
+.Drop.active .DropBorder {
+    background-color: #CCE5FF;
+    transition: background-color 0s ease;
 }
 
 .Drop .DropContent {

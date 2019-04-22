@@ -7,12 +7,16 @@ import Button from "react-bootstrap/Button";
 import SubmissionsQueue from "../lib/SubmissionsQueue";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {Howl} from 'howler';
 
 class Node extends React.Component {
     constructor(props) {
         super(props);
 
         this.dropRefs = [];
+        this.clickSound = new Howl({
+            src: "./sounds/click.mp3"
+        })
     }
 
     render() {
@@ -46,6 +50,9 @@ class Node extends React.Component {
             return <Drop key={i}
                          nodeDrop={nodeDrop}
                          drop={drop}
+                         onChange={() => {
+                             this.notifyChange();
+                         }}
                          ref={input => {
                              this.dropRefs.push(input);
                          }}/>
@@ -56,6 +63,11 @@ class Node extends React.Component {
         this.dropRefs.forEach(drop => {
             drop.setCount(0);
         });
+    }
+
+    notifyChange() {
+        this.clickSound.play();
+        window.navigator.vibrate(100);
     }
 
     toggleFilter() {

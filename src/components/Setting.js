@@ -8,7 +8,7 @@ class Setting extends React.Component {
         super(props);
 
         this.state = {
-            show: false,
+            show: !Storage.getSubmitterName(),
             submitter_name: Storage.getSubmitterName()
         };
     }
@@ -23,15 +23,23 @@ class Setting extends React.Component {
                     <Form.Group controlId="settingSubmitterName">
                         <Form.Label>Submitter Name</Form.Label>
                         <Form.Control value={this.state.submitter_name}
-                                      onChange={e => this.setSubmitterName(e.target.value)}/>
+                                      onChange={e => this.setSubmitterName(e.target.value)}
+                                      ref={(input) => {
+                                          this.submitterInput = input;
+                                      }}/>
                     </Form.Group>
                 </Modal.Body>
             </Modal>
         )
     }
 
+    componentDidMount() {
+        if (!Storage.getSubmitterName())
+            this.submitterInput.focus();
+    }
+
     handleClose() {
-        this.setState({ show: false });
+        this.setState({show: false});
     }
 
     setSubmitterName(name) {
