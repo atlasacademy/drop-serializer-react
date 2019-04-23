@@ -54,9 +54,13 @@ class SubmissionsApi {
         urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
 
         xhr.onload = function () {
-            let result = JSON.parse(xhr.responseText);
+            if (xhr.status === 200) {
+                let result = JSON.parse(xhr.responseText);
 
-            successCallback(result);
+                successCallback(result);
+            } else {
+                failureCallback(xhr.status);
+            }
         };
 
         xhr.onerror = function () {

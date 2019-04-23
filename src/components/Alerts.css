@@ -1,5 +1,5 @@
 .Alerts {
-    position: absolute;
+    position: fixed;
     right: 40px;
     top: 60px;
     z-index: 1000;
