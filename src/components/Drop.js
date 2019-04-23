@@ -113,6 +113,10 @@ class Drop extends React.Component {
             this.stopIncrement();
     }
 
+    clear() {
+        this.setCount(0);
+    }
+
     doIncrement(amount) {
         this.setCount(0 + this.state.count + amount);
 

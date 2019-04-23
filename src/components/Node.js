@@ -8,6 +8,7 @@ import SubmissionsQueue from "../lib/SubmissionsQueue";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {Howl} from 'howler';
+import DropBonus from "./DropBonus";
 
 class Node extends React.Component {
     constructor(props) {
@@ -44,24 +45,35 @@ class Node extends React.Component {
     renderDrops() {
         return this.props.nodeDrops.map((nodeDrop, i) => {
             let drop = this.props.drops.filter(drop => {
-                    return drop.uid === nodeDrop.uid;
-                }).shift();
+                return drop.uid === nodeDrop.uid;
+            }).shift();
 
-            return <Drop key={i}
-                         nodeDrop={nodeDrop}
-                         drop={drop}
-                         onClick={() => {
-                             this.notifyClick();
-                         }}
-                         ref={input => {
-                             this.dropRefs.push(input);
-                         }}/>
+            if (drop.type === "Bonus Rate-Up")
+                return <DropBonus key={i}
+                                  nodeDrop={nodeDrop}
+                                  drop={drop}
+                                  onClick={() => {
+                                      this.notifyClick();
+                                  }}
+                                  ref={input => {
+                                      this.dropRefs.push(input);
+                                  }}/>
+            else
+                return <Drop key={i}
+                             nodeDrop={nodeDrop}
+                             drop={drop}
+                             onClick={() => {
+                                 this.notifyClick();
+                             }}
+                             ref={input => {
+                                 this.dropRefs.push(input);
+                             }}/>
         });
     }
 
     clearDrops() {
         this.dropRefs.forEach(drop => {
-            drop.setCount(0);
+            drop.clear();
         });
     }
 

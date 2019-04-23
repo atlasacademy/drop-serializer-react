@@ -60,7 +60,7 @@ class SubmissionsApi {
         };
 
         xhr.onerror = function () {
-            failureCallback();
+            failureCallback(xhr.status);
         };
 
         xhr.open("POST", hostname + "/submit/run");

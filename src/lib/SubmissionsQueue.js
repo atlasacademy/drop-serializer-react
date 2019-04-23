@@ -57,7 +57,12 @@ class SubmissionsQueue {
                 isMissingDropsCallback();
 
             SubmissionsQueue.scheduleNext(true);
-        }, () => {
+        }, (code) => {
+            if (code === 422) {
+                Messages.push("danger", "Invalid submission. Removing from queue.");
+                Storage.shiftSubmissions();
+            }
+
             SubmissionsQueue.scheduleNext(false);
         });
     }

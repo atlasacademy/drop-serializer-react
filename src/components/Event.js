@@ -11,6 +11,7 @@ class Event extends React.Component {
 
         this.selectNode = this.selectNode.bind(this);
 
+        this.nodeKey = 0;
         this.state = this.extractNode(Query.getNode());
     }
 
@@ -51,7 +52,8 @@ class Event extends React.Component {
         if (!this.state.selectedNode)
             return;
 
-        return <Node node={this.state.node}
+        return <Node key={this.nodeKey}
+                     node={this.state.node}
                      nodeDrops={this.state.nodeDrops}
                      drops={this.state.drops}
                      onOutdated={this.props.onOutdated}/>
@@ -76,6 +78,7 @@ class Event extends React.Component {
     }
 
     selectNode(event) {
+        this.nodeKey++;
         let uid = event.target.value;
         Query.setNode(uid);
 
