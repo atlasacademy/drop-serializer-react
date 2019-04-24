@@ -10,6 +10,7 @@ import SubmissionsApi from "../lib/SubmissionsApi";
 import './App.css';
 import SubmissionsQueue from "../lib/SubmissionsQueue";
 import Messages from "../lib/Messages";
+import Storage from "../lib/Storage";
 
 class App extends Component {
     constructor(props) {
@@ -22,8 +23,13 @@ class App extends Component {
             isLoadingEvent: false,
             eventsData: [],
             eventData: null,
-            selectedEvent: Query.getEvent()
+            selectedEvent: Query.getEvent(),
+            width: Storage.getSettings().width
         };
+
+        Storage.onUpdateSettings(() => {
+            this.refreshSettings();
+        });
 
         SubmissionsApi.getEvents(events => {
             this.setState({
@@ -47,7 +53,7 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
+            <div className={"App " + this.state.width}>
                 <div className="AppTitle">
                     <h1>
                         Drop Serializer
@@ -82,7 +88,9 @@ class App extends Component {
     }
 
     refreshSettings() {
-
+        this.setState({
+            width: Storage.getSettings().width
+        });
     }
 
     reloadEvent() {

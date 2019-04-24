@@ -79,7 +79,9 @@ class Node extends React.Component {
 
     notifyClick() {
         this.clickSound.play();
-        window.navigator.vibrate(100);
+
+        if (window.navigator.vibrate)
+            window.navigator.vibrate(100);
     }
 
     toggleFilter() {

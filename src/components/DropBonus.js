@@ -7,7 +7,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 class DropBonus extends Drop {
 
     render() {
-        let DropIcon = (
+        let columns = " " + this.state.columns,
+            active = this.state.active ? " active" : "",
+            DropIcon = (
                 <img className="DropIcon" draggable="false"
                      src={this.props.drop.image}
                      alt={this.props.drop.name}
@@ -54,7 +56,7 @@ class DropBonus extends Drop {
             );
 
         return (
-            <div className="Drop">
+            <div className={"Drop DropBonus" + columns + active}>
                 <div className="DropBorder">
                     <div className="DropContent">
                         <div className="DropIconBox">

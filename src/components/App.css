@@ -1,4 +1,5 @@
 .App {
+    margin: 0 auto;
     padding: 10px 20px;
     user-select: none;
     -ms-user-select: none;
@@ -6,6 +7,11 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
 }
+
+.App.width_480 { width: 480px; }
+.App.width_720 { width: 720px; }
+.App.width_1080 { width: 1080px; }
+.App.width_2160 { width: 2160px; }
 
 .App .EventSelector {
     display: block;

@@ -32,12 +32,18 @@ class Drop extends React.Component {
 
         sessionDrop.showFilter = false;
         sessionDrop.active = false;
+        sessionDrop.columns = Storage.getSettings().columns;
 
         this.state = sessionDrop;
+
+        Storage.onUpdateSettings(() => {
+            this.refreshSettings();
+        });
     }
 
     render() {
-        let ignored = this.state.ignored ? " ignored" : "",
+        let columns = " " + this.state.columns,
+            ignored = this.state.ignored ? " ignored" : "",
             showFilter = this.state.showFilter ? " showFilter" : "",
             active = this.state.active ? " active" : "",
             DropIcon = (
@@ -79,7 +85,7 @@ class Drop extends React.Component {
             );
 
         return (
-            <div className={"Drop" + ignored + showFilter + active}>
+            <div className={"Drop" + columns + ignored + showFilter + active}>
                 <div className="DropBorder">
                     <div className="DropContent">
                         <div className="DropIconBox">
@@ -146,6 +152,12 @@ class Drop extends React.Component {
             count: this.state.count,
             ignored: this.state.ignored
         };
+    }
+
+    refreshSettings() {
+        this.setState({
+            columns: Storage.getSettings().columns
+        });
     }
 
     setCount(value) {

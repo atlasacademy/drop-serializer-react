@@ -1,3 +1,8 @@
+import EventEmitter from "events";
+import extend from "extend";
+
+const events = new EventEmitter();
+
 class Storage {
 
     static clearNodeSession(eventUid, eventNodeUid) {
@@ -23,6 +28,16 @@ class Storage {
             return [];
 
         return JSON.parse(nodeSession);
+    }
+
+    static getSettings() {
+        let settingsRaw = window.localStorage.getItem("settings"),
+            settings = settingsRaw === null ? {} : JSON.parse(settingsRaw);
+
+        return extend({
+            columns: "columns_auto",
+            width: "width_full"
+        }, settings);
     }
 
     static getSessionNodeDrop(eventUid, eventNodeUid, dropUid, dropQuantity) {
@@ -61,6 +76,10 @@ class Storage {
         return "event_" + eventUid + "_node_" + eventNodeUid;
     }
 
+    static onUpdateSettings(listener) {
+        events.on("update_settings", listener);
+    }
+
     static queueSubmission(submission) {
         let submissions = Storage.getSubmissions();
 
@@ -85,6 +104,14 @@ class Storage {
         });
 
         window.localStorage.setItem(key, JSON.stringify(filteredSession));
+    }
+
+    static setSettings(property, value) {
+        let settings = Storage.getSettings();
+        settings[property] = value;
+
+        window.localStorage.setItem("settings", JSON.stringify(settings));
+        events.emit("update_settings");
     }
 
     static setSubmitterName(name) {
