@@ -35,10 +35,10 @@ class Drop extends React.Component {
         sessionDrop.columns = Storage.getSettings().columns;
 
         this.state = sessionDrop;
-
-        Storage.onUpdateSettings(() => {
+        this.settingsListener = (() => {
             this.refreshSettings();
         });
+        Storage.onUpdateSettings(this.settingsListener);
     }
 
     render() {
@@ -121,6 +121,10 @@ class Drop extends React.Component {
 
     clear() {
         this.setCount(0);
+    }
+
+    destroy() {
+        Storage.removeUpdateSettingsListener(this.settingsListener);
     }
 
     doIncrement(amount) {

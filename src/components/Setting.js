@@ -57,6 +57,27 @@ class Setting extends React.Component {
                             <option value="columns_16">16</option>
                         </Form.Control>
                     </Form.Group>
+
+                    <Form.Group controlId="settingPlayClick">
+                        <Form.Label>Play Click</Form.Label>
+                        <Form.Control as="select"
+                                      value={this.state.settings.click ? "Yes" : "No"}
+                                      onChange={e => this.setPlayClick(e.target.value)}>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="settingVibrate">
+                        <Form.Label>Vibrate</Form.Label>
+                        <Form.Control as="select"
+                                      value={this.state.settings.vibrate ? "Yes" : "No"}
+                                      disabled={!window.navigator.vibrate}
+                                      onChange={e => this.setVibrate(e.target.value)}>
+                            <option>Yes</option>
+                            <option>No</option>
+                        </Form.Control>
+                    </Form.Group>
                 </Modal.Body>
             </Modal>
         )
@@ -85,10 +106,24 @@ class Setting extends React.Component {
         });
     }
 
+    setPlayClick(value) {
+        Storage.setSettings("click", value==="Yes");
+        this.setState({
+            settings: Storage.getSettings()
+        });
+    }
+
     setSubmitterName(name) {
         Storage.setSubmitterName(name);
         this.setState({
             "submitter_name": Storage.getSubmitterName()
+        });
+    }
+
+    setVibrate(value) {
+        Storage.setSettings("vibrate", value==="Yes");
+        this.setState({
+            settings: Storage.getSettings()
         });
     }
 

@@ -2,6 +2,7 @@ import EventEmitter from "events";
 import extend from "extend";
 
 const events = new EventEmitter();
+events.setMaxListeners(50);
 
 class Storage {
 
@@ -35,7 +36,9 @@ class Storage {
             settings = settingsRaw === null ? {} : JSON.parse(settingsRaw);
 
         return extend({
+            click: true,
             columns: "columns_auto",
+            vibrate: true,
             width: "width_full"
         }, settings);
     }
@@ -86,6 +89,10 @@ class Storage {
         submissions.push(submission);
 
         window.localStorage.setItem("submissions", JSON.stringify(submissions));
+    }
+
+    static removeUpdateSettingsListener(listener) {
+        events.removeListener("update_settings", listener);
     }
 
     static setSessionNodeDrop(eventUid, eventNodeUid, dropUid, dropQuantity, count, ignored) {

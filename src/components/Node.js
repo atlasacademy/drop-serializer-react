@@ -77,10 +77,17 @@ class Node extends React.Component {
         });
     }
 
-    notifyClick() {
-        this.clickSound.play();
+    destroy() {
+        this.dropRefs.forEach(drop => {
+            drop.destroy();
+        });
+    }
 
-        if (window.navigator.vibrate)
+    notifyClick() {
+        if (Storage.getSettings().click)
+            this.clickSound.play();
+
+        if (Storage.getSettings().vibrate && window.navigator.vibrate)
             window.navigator.vibrate(100);
     }
 

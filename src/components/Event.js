@@ -12,6 +12,7 @@ class Event extends React.Component {
         this.selectNode = this.selectNode.bind(this);
 
         this.nodeKey = 0;
+        this.nodeRef = null;
         this.state = this.extractNode(Query.getNode());
     }
 
@@ -56,7 +57,10 @@ class Event extends React.Component {
                      node={this.state.node}
                      nodeDrops={this.state.nodeDrops}
                      drops={this.state.drops}
-                     onOutdated={this.props.onOutdated}/>
+                     onOutdated={this.props.onOutdated}
+                     ref={input => {
+                         this.nodeRef = input;
+                     }}/>
     }
 
     renderNodeSelector() {
@@ -78,6 +82,9 @@ class Event extends React.Component {
     }
 
     selectNode(event) {
+        if (this.nodeRef)
+            this.nodeRef.destroy();
+
         this.nodeKey++;
         let uid = event.target.value;
         Query.setNode(uid);
