@@ -46,6 +46,7 @@ class Drop extends React.Component {
             ignored = this.state.ignored ? " ignored" : "",
             showFilter = this.state.showFilter ? " showFilter" : "",
             active = this.state.active ? " active" : "",
+            quantity = this.props.nodeDrop.quantity > 1 ? this.props.nodeDrop.quantity : this.props.drop.quantity,
             DropIcon = (
                 <img className="DropIcon" draggable="false"
                      src={this.props.drop.image}
@@ -57,8 +58,8 @@ class Drop extends React.Component {
             ),
             DropIndicator = <span className="DropIndicator">+</span>,
             DropQuantity = (
-                this.props.nodeDrop.quantity > 1
-                    ? <span className="DropQuantity">{this.props.nodeDrop.quantity}</span>
+                quantity > 1
+                    ? <span className="DropQuantity">{quantity}</span>
                     : ""
             ),
             DropInput = (
