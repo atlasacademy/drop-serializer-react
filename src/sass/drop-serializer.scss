@@ -1,0 +1,19 @@
+#drop-serializer {
+  @import "loading";
+  @import "title";
+  @import "event-selector";
+  @import "drops";
+
+  margin: 0 auto;
+  &.width_480 { width: 480px; }
+  &.width_720 { width: 720px; }
+  &.width_1080 { width: 1080px; }
+  &.width_2160 { width: 2160px; }
+
+  .Messages {
+    position: fixed;
+    right: 40px;
+    top: 60px;
+    z-index: 1000;
+  }
+}

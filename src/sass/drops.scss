@@ -1,0 +1,133 @@
+.drop-container {
+  margin: 20px -10px 0 -10px;
+  overflow: auto;
+  zoom: 1;
+}
+
+.drop {
+  float: left;
+  padding: 0 10px 20px 10px;
+  width: 12.5%;
+
+  $columns: (2, 3, 4, 6, 8, 12, 16);
+  $maxColumnWidth: 200px;
+  @for $i from 1 through length($columns) {
+    $column: nth($columns, $i);
+    $maxWidth: $column * $maxColumnWidth;
+
+    &.columns_#{$column} {
+      width: 100% / $column;
+    }
+
+    &.columns_auto {
+      @if $i == 1 {
+        @media (max-width: $maxWidth) {
+          width: 100% / $column;
+        }
+      } @else if $i < length($columns) {
+        $prevColumn: nth($columns, $i - 1);
+        $minWidth: ($prevColumn * $maxColumnWidth) + 1px;
+        @media (min-width: $minWidth) and (max-width: $maxWidth) {
+          width: 100% / $column;
+        }
+      } @else {
+        $prevColumn: nth($columns, $i - 1);
+        $minWidth: ($prevColumn * $maxColumnWidth) + 1px;
+        @media (min-width: $minWidth) {
+          width: 100% / $column;
+        }
+      }
+    }
+  }
+
+  .drop-border {
+    background-color: #FFFFFF;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    transition: background-color 0.2s ease-out;
+  }
+
+  &.animating .drop-border {
+    background-color: #CCE5FF;
+    transition: background-color 0s ease;
+  }
+
+  &.drop-bonus .drop-border {
+    background-color: #f8d7da;
+  }
+
+  &.drop-bonus.animating .drop-border {
+    background-color: #FFFFFF;
+  }
+
+  .drop-content {
+    padding: 10px;
+  }
+
+  .drop-icon-box {
+    margin-bottom: 10px;
+    padding-top: 110%;
+    position: relative;
+    width: 100%;
+  }
+
+  .drop-icon {
+    cursor: pointer;
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+
+  .drop-indicator {
+    font-size: 18px;
+    font-weight: bold;
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    text-shadow: -1px 0 #FFF, 0 1px #FFF, 1px 0 #FFF, 0 -1px #FFF;
+    top: 10px;
+  }
+
+  .drop-quantity {
+    bottom: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    pointer-events: none;
+    position: absolute;
+    right: 10px;
+    text-shadow: -1px 0 #FFF, 0 1px #FFF, 1px 0 #FFF, 0 -1px #FFF;
+  }
+
+  .drop-input {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .drop-toggle {
+    background-color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+
+    .drop-toggle-icon {
+      color: #FFFFFF;
+      font-size: 60px;
+      height: 60px;
+      margin: auto;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
+}

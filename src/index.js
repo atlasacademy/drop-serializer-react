@@ -1,11 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './components/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
-import {faBan, faCheck, faCog, faCopy, faFilter, faMinus, faSpinner, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
+import {
+    faBan,
+    faCheck,
+    faCog,
+    faCopy,
+    faFilter,
+    faMinus,
+    faSpinner,
+    faTrashAlt
+} from '@fortawesome/free-solid-svg-icons';
 import {faDiscord, faGithub} from '@fortawesome/free-brands-svg-icons';
 
 library.add(faBan);
