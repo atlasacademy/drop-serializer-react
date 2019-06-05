@@ -87,7 +87,13 @@ export default function dropSerializerReducer(state, action) {
 
             window.localStorage.setItem(storageKey, JSON.stringify(submissionDrops));
 
-            return {...state, submissionDrops};
+            return {
+                ...state,
+                selectedDropUid: null,
+                selectedDropQuantity: null,
+                selectedDropInitialCount: null,
+                submissionDrops
+            };
         }
         case SELECT_EVENT:
             return {...state, selectedEvent: action.payload, selectedNode: ""};
