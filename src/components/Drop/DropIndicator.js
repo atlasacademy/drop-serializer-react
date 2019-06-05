@@ -18,11 +18,6 @@ class DropIndicator extends React.Component {
         )
     }
 
-    animate() {
-        this.setState({animating: true});
-
-        setTimeout(() => this.setState({animating: false}), 1);
-    }
 }
 
 export default _DropReduxConnector.connect(DropIndicator);
