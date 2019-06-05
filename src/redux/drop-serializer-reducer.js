@@ -120,6 +120,10 @@ export default function dropSerializerReducer(state, action) {
                 {uid, quantity, count, ignored} = action.payload,
                 storageKey = '' + selectedEvent + '_' + selectedNode,
                 nodeDrops = state.eventData.node_drops.filter(nodeDrop => nodeDrop.event_node_uid === selectedNode),
+                initialDrop = state.submissionDrops.filter(submissionDrop =>
+                    submissionDrop.uid === uid
+                    && submissionDrop.quantity === quantity
+                ).shift(),
                 submissionDrops = nodeDrops.map(nodeDrop => {
                     let submissionDrop = state.submissionDrops.filter(submissionDrop =>
                         submissionDrop.uid === nodeDrop.uid
@@ -146,6 +150,12 @@ export default function dropSerializerReducer(state, action) {
                 newState = {...state, submissionDrops};
 
             window.localStorage.setItem(storageKey, JSON.stringify(submissionDrops));
+
+            if (state.selectedDropUid !== uid || state.selectedDropQuantity !== quantity) {
+                newState.selectedDropUid = uid;
+                newState.selectedDropQuantity = quantity;
+                newState.selectedDropInitialCount = initialDrop ? initialDrop.count : 0;
+            }
 
             return newState;
         }

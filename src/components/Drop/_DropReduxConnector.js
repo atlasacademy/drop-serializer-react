@@ -3,7 +3,15 @@ import {updateDrop} from "../../redux/drop-serializer-actions";
 
 function mapStateToProps(state, ownProps) {
     let {nodeDrop} = ownProps,
-        {eventData, settings, showFilters, submissionDrops} = state.dropSerializer,
+        {
+            eventData,
+            selectedDropUid,
+            selectedDropQuantity,
+            selectedDropInitialCount,
+            settings,
+            showFilters,
+            submissionDrops
+        } = state.dropSerializer,
         drop = eventData.drops.filter(drop => drop.uid === nodeDrop.uid).shift(),
         quantityDisplay = nodeDrop.quantity > 1 ? nodeDrop.quantity : drop.quantity,
         submissionDrop = submissionDrops.filter(submissionDrop => {
@@ -20,7 +28,17 @@ function mapStateToProps(state, ownProps) {
             ignored: false
         };
 
-    return {drop, nodeDrop, quantityDisplay, submissionDrop, settings, showFilters};
+    return {
+        drop,
+        nodeDrop,
+        quantityDisplay,
+        selectedDropUid,
+        selectedDropQuantity,
+        selectedDropInitialCount,
+        submissionDrop,
+        settings,
+        showFilters
+    };
 }
 
 function mapDispatchToProps(dispatch, ownProps) {

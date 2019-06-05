@@ -4,6 +4,7 @@ import DropCount from "./Count/DropCount";
 import DropDecrement from "./Incrementor/DropDecrement";
 import DropIcon from "./Incrementor/DropIcon";
 import DropToggle from "./Toggle/DropToggle";
+import DropIndicator from "./DropIndicator";
 
 class Drop extends React.Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class Drop extends React.Component {
                     <div className="drop-content">
                         <div className="drop-icon-box">
                             <DropIcon nodeDrop={this.props.nodeDrop} parent={this}/>
-                            <span className="drop-indicator">+</span>
+                            <DropIndicator nodeDrop={this.props.nodeDrop}/>
                             <span className="drop-quantity">
                                 {this.props.quantityDisplay > 1 ? this.props.quantityDisplay : ""}
                             </span>
