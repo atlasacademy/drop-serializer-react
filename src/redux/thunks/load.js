@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     initState,
     loadSession, loadSettings, loadSubmissionQueue,
-    setEventData, setEventList,
+    setEventData, setEventList, setShowSettings,
     updateLoading
 } from "../drop-serializer-actions";
 
@@ -37,7 +37,7 @@ export const init = (options) => {
             state.selectedNode = params.has("node") ? params.get("node") : "";
     }
 
-    return (dispatch) => {
+    return (dispatch, getState) => {
         return Promise.resolve()
                       .then(() => dispatch(initState(state)))
                       .then(() => dispatch(updateLoading(true)))
@@ -46,6 +46,12 @@ export const init = (options) => {
                       .then(() => dispatch(fetchEvent()))
                       .then(() => dispatch(loadSession()))
                       .then(() => dispatch(loadSubmissionQueue()))
+                      .then(() => {
+                          if (getState().dropSerializer.settings.submitter_name === "")
+                              return dispatch(setShowSettings(true));
+
+                          return Promise.resolve();
+                      })
                       .then(() => dispatch(updateLoading(false)));
     };
 };
@@ -58,7 +64,7 @@ export const fetchEvents = () => {
             return;
 
         return axios.get(domain + "/event")
-            .then(response => dispatch(setEventList(response.data)));
+                    .then(response => dispatch(setEventList(response.data)));
     };
 };
 
@@ -70,6 +76,6 @@ export const fetchEvent = () => {
             return;
 
         return axios.get(domain + "/event/" + selectedEvent)
-            .then(response => dispatch(setEventData(response.data)));
+                    .then(response => dispatch(setEventData(response.data)));
     };
 };
