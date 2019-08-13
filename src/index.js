@@ -9,6 +9,7 @@ import {
     faCheck,
     faCog,
     faCopy,
+    faFileExcel,
     faFilter,
     faMinus,
     faSpinner,
@@ -20,6 +21,7 @@ library.add(faBan);
 library.add(faCheck);
 library.add(faCog);
 library.add(faCopy);
+library.add(faFileExcel);
 library.add(faFilter);
 library.add(faMinus);
 library.add(faSpinner);

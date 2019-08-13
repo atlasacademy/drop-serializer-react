@@ -13,6 +13,7 @@ import EventSelector from "./Selector/EventSelector";
 import NodeSelector from "./Selector/NodeSelector";
 import ToggleFilterButton from "./Button/ToggleFilterButton";
 import SubmitButton from "./Button/SubmitButton";
+import SheetButton from "./Button/SheetButton";
 
 const mapStateToProps = (state, ownProps) => {
     const {eventData, eventList, isLoading, selectedEvent, selectedNode, settings} = state.dropSerializer,
@@ -41,6 +42,7 @@ class DropSerializer extends React.Component {
                 <ToggleSettingButton/>
 
                 <div className="links">
+                    <SheetButton/>
                     <a href="https://github.com/atlasacademy/drop-serializer-react"
                        className="text-secondary"
                        target="_blank" rel="noopener noreferrer author">
