@@ -4,6 +4,15 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index";
 import {connect} from 'react-redux';
 import {queue} from "../../redux/thunks/submission";
 
+const mapStateToProps = (state) => {
+    const dropCounts = state.dropSerializer.submissionDrops.map(submissionDrop =>
+            submissionDrop.ignored ? 0 : submissionDrop.count
+        ),
+        dropCount = dropCounts.reduce((a, b) => a + b, 0);
+
+    return {dropCount};
+};
+
 class SubmitButton extends React.Component {
     constructor(props) {
         super(props);
@@ -17,6 +26,10 @@ class SubmitButton extends React.Component {
     render() {
         return (
             <Button variant="success" block disabled={this.state.disabled} onClick={(e) => this.submit()}>
+                <img className="chest-icon" src="assets/chest.png"/> {this.props.dropCount}
+                &nbsp;
+                -
+                &nbsp;
                 <FontAwesomeIcon icon="copy"/> Submit Run
             </Button>
         );
@@ -31,4 +44,4 @@ class SubmitButton extends React.Component {
     }
 }
 
-export default connect()(SubmitButton);
+export default connect(mapStateToProps)(SubmitButton);
