@@ -1,4 +1,5 @@
 import axios from "axios";
+import uuidv1 from "uuid/v1";
 import {
     pushMessage,
     queueSubmission,
@@ -29,7 +30,8 @@ export const queue = () => {
             event_uid: selectedEvent,
             event_node_uid: selectedNode,
             submitter: submitterName,
-            drops: drops
+            drops: drops,
+            token: uuidv1()
         };
 
         return Promise.resolve()
