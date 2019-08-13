@@ -5,6 +5,7 @@ import {
     setEventData, setEventList, setShowSettings,
     updateLoading
 } from "../drop-serializer-actions";
+import {sendNext} from "./submission";
 
 export const init = (options) => {
     let state = {
@@ -46,6 +47,12 @@ export const init = (options) => {
                       .then(() => dispatch(fetchEvent()))
                       .then(() => dispatch(loadSession()))
                       .then(() => dispatch(loadSubmissionQueue()))
+                      .then(() => {
+                          // Send next submission (if exists) without blocking loading.
+                          dispatch(sendNext());
+
+                          return Promise.resolve();
+                      })
                       .then(() => {
                           if (getState().dropSerializer.settings.submitter_name === "")
                               return dispatch(setShowSettings(true));
