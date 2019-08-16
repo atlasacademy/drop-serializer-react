@@ -6,9 +6,6 @@ export const selectEvent = (uid) => {
     return (dispatch, getState) => {
         const {eventData} = getState().dropSerializer;
 
-        if (eventData && uid === eventData.uid)
-            return;
-
         if (!uid)
             return Promise.resolve()
                           .then(() => dispatch(setEvent(uid)))

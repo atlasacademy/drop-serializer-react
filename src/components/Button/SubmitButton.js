@@ -19,8 +19,17 @@ class SubmitButton extends React.Component {
 
         this.state = {
             delay: 1000,
-            disabled: false
+            disabled: false,
+            timeout: null
         }
+    }
+
+    componentWillUnmount() {
+        if (!this.state.timeout)
+            return;
+
+        window.clearTimeout(this.state.timeout);
+        this.setState({timeout: null});
     }
 
     render() {
@@ -37,10 +46,12 @@ class SubmitButton extends React.Component {
 
     submit() {
         this.props.dispatch(queue());
-        this.setState({disabled: true});
-        window.setTimeout(() => {
-            this.setState({disabled: false});
-        }, this.state.delay);
+        this.setState({
+            disabled: true,
+            timeout: window.setTimeout(() => {
+                this.setState({disabled: false, timeout: null});
+            }, this.state.delay)
+        });
     }
 }
 

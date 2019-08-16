@@ -7,6 +7,7 @@ import {
     setSubmissionPending,
     shiftSubmissions
 } from "../drop-serializer-actions";
+import {selectEvent, selectNode} from "./select";
 
 export const queue = () => {
     return (dispatch, getState) => {
@@ -59,6 +60,7 @@ export const sendNext = () => {
 
 export const submit = (submission) => {
     return (dispatch, getState) => {
+        const {event_uid} = submission;
         const {domain} = getState().dropSerializer;
 
         return Promise.resolve()
@@ -72,6 +74,7 @@ export const submit = (submission) => {
                                  )))
                                  .then(() => dispatch(shiftSubmissions()))
                                  .then(() => dispatch(setSubmissionPending(false)))
+                                 .then(() => dispatch(reloadOutdatedEventData(event_uid, response.data.missing_drops)))
                                  .then(() => dispatch(sendNext()))
                       )
                       .catch(error => {
@@ -99,5 +102,32 @@ export const submit = (submission) => {
                                         .then(() => dispatch(setSubmissionPending(false)))
                                         .then(() => dispatch(sendNext()));
                       });
+    };
+};
+
+export const reloadOutdatedEventData = (submissionEventUid, missingDrops) => {
+    return (dispatch, getState) => {
+        const {selectedEvent, selectedNode} = getState().dropSerializer;
+
+        // Event data isn't outdated
+        if (!missingDrops) {
+            return Promise.resolve();
+        }
+
+        // Outdated event isn't the current selected event. They will refresh if they select again so do not force
+        // a refresh
+        if (submissionEventUid !== selectedEvent) {
+            return Promise.resolve();
+        }
+
+        // Event data is outdated. Refresh the data
+        return Promise.resolve()
+                      .then(() => dispatch(pushMessage(
+                          "info",
+                          "Event data is outdated. Refreshing now ..."
+                      )))
+                      .then(() => dispatch(selectEvent('')))
+                      .then(() => dispatch(selectEvent(selectedEvent)))
+                      .then(() => dispatch(selectNode(selectedNode)));
     };
 };
