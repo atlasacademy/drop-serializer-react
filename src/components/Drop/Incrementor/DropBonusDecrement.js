@@ -9,7 +9,7 @@ class DropBonusDecrement extends _DropIncrementor {
     constructor(props) {
         super(props, {
             max: 100,
-            step: -10
+            step: -25
         });
     }
 

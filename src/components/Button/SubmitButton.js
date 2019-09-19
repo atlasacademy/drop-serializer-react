@@ -5,9 +5,17 @@ import {connect} from 'react-redux';
 import {queue} from "../../redux/thunks/submission";
 
 const mapStateToProps = (state) => {
-    const dropCounts = state.dropSerializer.submissionDrops.map(submissionDrop =>
-            submissionDrop.ignored ? 0 : submissionDrop.count
-        ),
+    const drops = state.dropSerializer.eventData.drops,
+        dropCounts = state.dropSerializer.submissionDrops.map(submissionDrop => {
+            if (submissionDrop.ignored)
+                return 0;
+
+            let drop = drops.filter(drop => drop.uid === submissionDrop.uid).shift();
+            if (drop && drop.type === 'Bonus Rate-Up')
+                return 0;
+
+            return submissionDrop.count;
+        }),
         dropCount = dropCounts.reduce((a, b) => a + b, 0);
 
     return {dropCount};
