@@ -4,13 +4,15 @@ import {
     LOAD_SETTINGS,
     LOAD_SUBMISSION_QUEUE,
     PUSH_MESSAGE,
-    QUEUE_SUBMISSION, RESET_SUBMISSION,
+    QUEUE_SUBMISSION,
+    RESET_SUBMISSION,
     SELECT_EVENT,
     SELECT_NODE,
     SET_EVENT_DATA,
     SET_EVENT_LIST,
     SET_SHOW_FILTERS,
     SET_SHOW_SETTINGS,
+    SET_SHOW_UPLOAD,
     SET_SUBMISSION_PENDING,
     SHIFT_MESSAGES,
     SHIFT_SUBMISSIONS,
@@ -107,6 +109,8 @@ export default function dropSerializerReducer(state, action) {
             return {...state, showFilters: action.payload};
         case SET_SHOW_SETTINGS:
             return {...state, showSettings: action.payload};
+        case SET_SHOW_UPLOAD:
+            return {...state, showUpload: action.payload};
         case SET_SUBMISSION_PENDING:
             return {...state, submissionPending: action.payload};
         case SHIFT_MESSAGES: {

@@ -1,8 +1,12 @@
 import axios from "axios";
 import {
     initState,
-    loadSession, loadSettings, loadSubmissionQueue,
-    setEventData, setEventList, setShowSettings,
+    loadSession,
+    loadSettings,
+    loadSubmissionQueue,
+    setEventData,
+    setEventList,
+    setShowSettings,
     updateLoading
 } from "../drop-serializer-actions";
 import {sendNext} from "./submission";
@@ -23,6 +27,7 @@ export const init = (options) => {
         settings: {},
         showFilters: false,
         showSettings: false,
+        showUpload: false,
         submissionPending: false,
         submissionQueue: [],
         ...options

@@ -10,6 +10,7 @@ import {
     faCog,
     faCopy,
     faFileExcel,
+    faFileUpload,
     faFilter,
     faMinus,
     faSpinner,
@@ -22,6 +23,7 @@ library.add(faCheck);
 library.add(faCog);
 library.add(faCopy);
 library.add(faFileExcel);
+library.add(faFileUpload);
 library.add(faFilter);
 library.add(faMinus);
 library.add(faSpinner);

@@ -5,15 +5,17 @@ import Row from "react-bootstrap/Row";
 import {connect} from 'react-redux';
 import {init} from '../redux/thunks/load';
 import "../sass/drop-serializer.scss";
-import Messages from "./Message/Messages";
-import Settings from "./Setting/SettingsModal";
-import ToggleSettingButton from "./Setting/ToggleSettingsButton";
+import SheetButton from "./Button/SheetButton";
+import SubmitButton from "./Button/SubmitButton";
+import ToggleFilterButton from "./Button/ToggleFilterButton";
 import DropContainer from "./Drop/DropContainer";
+import Messages from "./Message/Messages";
 import EventSelector from "./Selector/EventSelector";
 import NodeSelector from "./Selector/NodeSelector";
-import ToggleFilterButton from "./Button/ToggleFilterButton";
-import SubmitButton from "./Button/SubmitButton";
-import SheetButton from "./Button/SheetButton";
+import Settings from "./Setting/SettingsModal";
+import ToggleSettingButton from "./Setting/ToggleSettingsButton";
+import UploadButton from "./Upload/UploadButton";
+import UploadModal from "./Upload/UploadModal";
 
 const mapStateToProps = (state, ownProps) => {
     const {eventData, eventList, isLoading, selectedEvent, selectedNode, settings} = state.dropSerializer,
@@ -42,6 +44,7 @@ class DropSerializer extends React.Component {
                 <ToggleSettingButton/>
 
                 <div className="links">
+                    <UploadButton/>
                     <SheetButton/>
                     <a href="https://github.com/atlasacademy/drop-serializer-react"
                        className="text-secondary"
@@ -71,6 +74,7 @@ class DropSerializer extends React.Component {
             </div>
             }
             <Settings/>
+            <UploadModal/>
             {this.props.isLoading && <div className="loading">
                 <div className="loading-content">
                     <FontAwesomeIcon icon="spinner" spin/>

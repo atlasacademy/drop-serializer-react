@@ -98,6 +98,14 @@ export const setShowSettings = (payload) => {
     };
 };
 
+export const SET_SHOW_UPLOAD = "drop-serializer/SET_SHOW_UPLOAD";
+export const setShowUpload = (payload) => {
+    return {
+        type: SET_SHOW_UPLOAD,
+        payload
+    };
+};
+
 export const SET_SUBMISSION_PENDING = "drop-serializer/SET_SUBMISSION_PENDING";
 export const setSubmissionPending = (payload) => {
     return {
