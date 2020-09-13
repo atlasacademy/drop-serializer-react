@@ -167,8 +167,15 @@ class UploadModal extends React.Component {
                                             <option value={"simple"}>Simple</option>
                                             <option value={"full"}>Full</option>
                                         </Form.Control>
+                                        <Form.Text>
+                                            <ul>
+                                                <li>Simple: Only first screen. Currency + QP + Exp are ignored</li>
+                                                <li>Full: All drop screens are required for submission to be successful</li>
+                                            </ul>
+                                        </Form.Text>
                                     </Form.Group>
                                     <Form.Group>
+                                        <Form.Label>Files</Form.Label>
                                         <div className="custom-file">
                                             <input type="file"
                                                    className="custom-file-input"
