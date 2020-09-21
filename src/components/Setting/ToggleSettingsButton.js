@@ -5,7 +5,7 @@ import _SettingsReduxConnector from "./_SettingsReduxConnector";
 
 export default _SettingsReduxConnector.connect(function ({showSettings, show, hide}) {
     return (
-        <Button variant="primary" className="settings" onClick={e => show(e)}>
+        <Button variant="outline-danger" className="settings" onClick={e => show(e)}>
             <FontAwesomeIcon icon="cog"/>
         </Button>
     )

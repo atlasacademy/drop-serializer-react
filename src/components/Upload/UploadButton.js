@@ -2,6 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import {connect} from "react-redux";
 import {setShowUpload} from "../../redux/drop-serializer-actions";
+import {Button} from "react-bootstrap";
 
 const mapStateToProps = (state) => {
     const {eventData, eventList, selectedNode, showUpload} = state.dropSerializer,
@@ -24,11 +25,14 @@ class UploadButton extends React.Component {
 
         return (
             <a href=""
-               onClick={event => {
-                   event.preventDefault();
-                   this.toggle();
-               }}>
-                <FontAwesomeIcon icon="file-upload"/>
+            onClick={event => {
+                    event.preventDefault();
+                    this.toggle();
+                }}>
+                <Button variant="outline-info">
+                    Upload drop screenshots&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="file-upload"/>
+                </Button>
             </a>
         );
     }

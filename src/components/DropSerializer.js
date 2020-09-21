@@ -1,7 +1,6 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
-import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
+import {Col, Row, Button} from "react-bootstrap";
 import {connect} from 'react-redux';
 import {init} from '../redux/thunks/load';
 import "../sass/drop-serializer.scss";
@@ -49,12 +48,16 @@ class DropSerializer extends React.Component {
                     <a href="https://github.com/atlasacademy/drop-serializer-react"
                        className="text-secondary"
                        target="_blank" rel="noopener noreferrer author">
-                        <FontAwesomeIcon icon={['fab', 'github']}/>
+                        <Button variant="outline-secondary">
+                            <FontAwesomeIcon icon={['fab', 'github']}/>
+                        </Button>
                     </a>
                     <a href="https://discord.gg/TKJmuCR"
                        className="text-secondary"
                        target="_blank" rel="noopener noreferrer author">
-                        <FontAwesomeIcon icon={['fab', 'discord']}/>
+                        <Button variant="outline-secondary">
+                            <FontAwesomeIcon icon={['fab', 'discord']}/>
+                        </Button>
                     </a>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome/index";
 import {connect} from 'react-redux';
+import {Button} from "react-bootstrap";
 
 const mapStateToProps = (state) => {
     const {eventData, eventList} = state.dropSerializer,
@@ -22,7 +23,9 @@ class SheetButton extends React.Component {
             <a href={this.props.sheetLink}
                className="text-success"
                target="_blank" rel="noopener noreferrer author">
-                <FontAwesomeIcon icon="file-excel"/>
+                <Button variant="outline-success">
+                    <FontAwesomeIcon icon="file-excel"/>
+                </Button>
             </a>
         );
     }
