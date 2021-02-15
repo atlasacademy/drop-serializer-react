@@ -35,31 +35,36 @@ class DropSerializer extends React.Component {
     render() {
         return <div id={"drop-serializer"} className={this.props.settings.width}>
             <div className="title">
-                <h1>
-                    Drop Serializer
-                    <small>by <a href="https://discord.gg/TKJmuCR">Atlas Academy</a></small>
-                </h1>
+                <Row>
+                <Col md={12} lg={6}>
+                    <h1>
+                        Drop Serializer
+                        <small> by <a href="https://discord.gg/TKJmuCR">Atlas Academy</a></small>
+                    </h1>
+                </Col>
 
-                <ToggleSettingButton/>
-
-                <div className="links">
-                    <UploadButton/>
-                    <SheetButton/>
-                    <a href="https://github.com/atlasacademy/drop-serializer-react"
-                       className="text-secondary"
-                       target="_blank" rel="noopener noreferrer author">
-                        <Button variant="outline-secondary">
-                            <FontAwesomeIcon icon={['fab', 'github']}/>
-                        </Button>
-                    </a>
-                    <a href="https://discord.gg/TKJmuCR"
-                       className="text-secondary"
-                       target="_blank" rel="noopener noreferrer author">
-                        <Button variant="outline-secondary">
-                            <FontAwesomeIcon icon={['fab', 'discord']}/>
-                        </Button>
-                    </a>
-                </div>
+                <Col md={12} lg={6}>
+                    <div className="links">
+                        <UploadButton/>
+                        <SheetButton/>
+                        <a href="https://github.com/atlasacademy/drop-serializer-react"
+                        className="text-secondary"
+                        target="_blank" rel="noopener noreferrer author">
+                            <Button variant="outline-secondary">
+                                <FontAwesomeIcon icon={['fab', 'github']}/>
+                            </Button>
+                        </a>
+                        <a href="https://discord.gg/TKJmuCR"
+                        className="text-secondary"
+                        target="_blank" rel="noopener noreferrer author">
+                            <Button variant="outline-secondary">
+                                <FontAwesomeIcon icon={['fab', 'discord']}/>
+                            </Button>
+                        </a>
+                        <ToggleSettingButton/>
+                    </div>
+                </Col>
+                </Row>
             </div>
             {this.props.eventsLoaded && <EventSelector/>}
             {this.props.eventLoaded && <NodeSelector/>}
