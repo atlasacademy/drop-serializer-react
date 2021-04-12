@@ -11,8 +11,8 @@ class DropBonusCount extends React.Component {
                           value={this.props.submissionDrop.count}
                           onChange={(e) => this.props.update(parseInt(e.target.value), false)}
                           size="sm">
-                {[...Array(11).keys()].map(i =>
-                    <option key={i} value={i * 10}>{i * 10}%</option>
+                {[...Array(5).keys()].map(i =>
+                    <option key={i} value={i * 25}>{i * 25}%</option>
                 )}
             </Form.Control>
         );
