@@ -5,6 +5,7 @@ import Columns from "./Field/Columns";
 import SubmitterName from "./Field/SubmitterName";
 import Vibrate from "./Field/Vibrate";
 import Width from "./Field/Width";
+import Theme from "./Field/Theme";
 import _SettingsReduxConnector from "./_SettingsReduxConnector";
 
 export default _SettingsReduxConnector.connect(function ({showSettings, show, hide}) {
@@ -17,6 +18,7 @@ export default _SettingsReduxConnector.connect(function ({showSettings, show, hi
                 <SubmitterName property={'submitter_name'} />
                 <Width property={'width'} />
                 <Columns property={'columns'} />
+                <Theme property={'theme'} />
                 <Click property={'click'} />
                 <Vibrate property={'vibrate'} />
             </Modal.Body>

@@ -42,7 +42,8 @@ export default function dropSerializerReducer(state, action) {
                     click: true,
                     columns: "columns_auto",
                     vibrate: true,
-                    width: "width_full"
+                    width: "width_full",
+                    theme: "theme_default",
                 },
                 json = window.localStorage.getItem('settings'),
                 storedSettings = json === null ? [] : JSON.parse(json),

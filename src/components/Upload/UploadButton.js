@@ -24,7 +24,7 @@ class UploadButton extends React.Component {
         }
 
         return (
-            <a href=""
+            <a href="Upload drop screenshots"
             onClick={event => {
                     event.preventDefault();
                     this.toggle();

@@ -27,7 +27,7 @@ class Drop extends React.Component {
                             <DropIcon nodeDrop={this.props.nodeDrop} parent={this}/>
                             <DropIndicator nodeDrop={this.props.nodeDrop}/>
                             <span className="drop-quantity">
-                                {this.props.quantityDisplay > 1 ? this.props.quantityDisplay : ""}
+                                {this.props.quantityDisplay > 1 ? this.props.quantityDisplay.toLocaleString() : ""}
                             </span>
                         </div>
                         <DropCount nodeDrop={this.props.nodeDrop}/>

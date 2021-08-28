@@ -2,6 +2,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";
 import {Col, Row, Button} from "react-bootstrap";
 import {connect} from 'react-redux';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import {init} from '../redux/thunks/load';
 import "../sass/drop-serializer.scss";
 import SheetButton from "./Button/SheetButton";
@@ -33,7 +34,17 @@ class DropSerializer extends React.Component {
     }
 
     render() {
-        return <div id={"drop-serializer"} className={this.props.settings.width}>
+        const theme = (this.props.settings.theme ?? "theme_default").replace("theme_", "");
+        return <HelmetProvider>
+        <Helmet>
+            {theme === "default" ? null : (
+                <link
+                    key="theme"
+                    rel="stylesheet"
+                    href={`https://cdn.jsdelivr.net/npm/bootswatch@4.6.0/dist/${theme}/bootstrap.min.css`}/>
+            )}
+        </Helmet>
+        <div id={"drop-serializer"} className={this.props.settings.width}>
             <div className="title">
                 <Row>
                 <Col md={12} lg={6}>
@@ -89,7 +100,8 @@ class DropSerializer extends React.Component {
                 </div>
             </div>}
             <Messages/>
-        </div>;
+        </div>
+        </HelmetProvider>;
     }
 
 }

@@ -43,7 +43,7 @@ class SubmitButton extends React.Component {
     render() {
         return (
             <Button variant="success" block disabled={this.state.disabled} onClick={(e) => this.submit()}>
-                <img className="chest-icon" src="assets/chest.png"/> {this.props.dropCount}
+                <img className="chest-icon" src="assets/chest.png" alt=""/> {this.props.dropCount}
                 &nbsp;
                 -
                 &nbsp;
