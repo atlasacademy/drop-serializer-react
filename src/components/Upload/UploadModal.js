@@ -1,18 +1,22 @@
 import axios from "axios";
 import React from "react";
-import {Button, ButtonGroup, ProgressBar} from "react-bootstrap";
+import {Alert, Button, ButtonGroup, ProgressBar} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import {connect} from "react-redux";
 import {setShowUpload} from "../../redux/drop-serializer-actions";
 
 const mapStateToProps = (state) => {
-    const {domain, selectedEvent, selectedNode, settings, showUpload} = state.dropSerializer;
+    const {domain, selectedEvent, selectedNode, settings, showUpload, eventList, eventData} = state.dropSerializer;
+    const selectedEventName = (eventList ?? []).find(e => e.uid === selectedEvent)?.name ?? "";
+    const selectedNodeName = eventData?.nodes.find(n => n.uid === selectedNode)?.name ?? "";
 
     return {
         domain,
         selectedEvent,
+        selectedEventName,
         selectedNode,
+        selectedNodeName,
         show: showUpload,
         submitter: settings.submitter_name
     };
@@ -147,6 +151,7 @@ class UploadModal extends React.Component {
     }
 
     render() {
+        const isEvent = /^\d+$/.test(this.props.selectedEvent);
         return (
             <Modal show={this.props.show} onHide={() => this.hide()}>
                 <Modal.Header closeButton>
@@ -157,6 +162,11 @@ class UploadModal extends React.Component {
                         <Form>
                             {!this.state.files.length ? (
                                 <div>
+                                    <Alert variant="info">
+                                        Uploading to {isEvent ? "event" : ""} <b>{this.props.selectedEventName}</b>{" "}
+                                        node <b>{this.props.selectedNodeName}</b>{" "}
+                                        as <b>{this.props.submitter}</b>
+                                    </Alert>
                                     <Form.Group>
                                         <Form.Label>Type</Form.Label>
                                         <Form.Control as="select"
