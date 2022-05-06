@@ -179,8 +179,9 @@ class UploadModal extends React.Component {
                                         </Form.Control>
                                         <Form.Text>
                                             <ul>
-                                                <li>Simple: Only first screen. Currency + QP + Exp are ignored</li>
-                                                <li>Full: All drop screens are required for submission to be successful</li>
+                                                <li>Simple: Only <b>first screen</b> is required. Currency + QP + EXP are ignored.</li>
+                                                <li>Full: <b>All</b> drop screens are required for submission to be successful.
+                                                EXP auto-burn must be turned <b>off</b>.</li>
                                             </ul>
                                         </Form.Text>
                                     </Form.Group>
