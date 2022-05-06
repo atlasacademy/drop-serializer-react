@@ -3,9 +3,7 @@ import {setQuery} from "./query";
 import {fetchEvent} from "./load";
 
 export const selectEvent = (uid) => {
-    return (dispatch, getState) => {
-        const {eventData} = getState().dropSerializer;
-
+    return (dispatch, _) => {
         if (!uid)
             return Promise.resolve()
                           .then(() => dispatch(setEvent(uid)))

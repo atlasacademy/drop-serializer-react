@@ -54,4 +54,6 @@ function mapDispatchToProps(dispatch, ownProps) {
 
 const connect = reduxConnect(mapStateToProps, mapDispatchToProps);
 
-export default {connect, mapDispatchToProps, mapStateToProps};
+const _DropReduxConnector = {connect, mapDispatchToProps, mapStateToProps};
+
+export default _DropReduxConnector;

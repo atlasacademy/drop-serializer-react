@@ -15,4 +15,6 @@ const mapDispatchToProps = _DropReduxConnector.mapDispatchToProps;
 
 const connect = reduxConnect(mapStateToProps, mapDispatchToProps);
 
-export default {connect, mapDispatchToProps, mapStateToProps};
+const _DropIncrementorReduxConnector = {connect, mapDispatchToProps, mapStateToProps};
+
+export default _DropIncrementorReduxConnector;

@@ -21,4 +21,6 @@ function mapDispatchToProps(dispatch) {
 
 const connect = reduxConnect(mapStateToProps, mapDispatchToProps);
 
-export default {connect, mapDispatchToProps, mapStateToProps};
+const _SettingsReduxConnector = {connect, mapDispatchToProps, mapStateToProps};
+
+export default _SettingsReduxConnector;

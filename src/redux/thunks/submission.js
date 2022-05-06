@@ -1,5 +1,5 @@
 import axios from "axios";
-import uuidv1 from "uuid/v1";
+import { v1 as uuidv1 } from "uuid";
 import {
     pushMessage,
     queueSubmission,
