@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import {connect} from "react-redux";
 import {setShowUpload} from "../../redux/drop-serializer-actions";
+import ModalCloseButton from "../Button/ModalCloseButton";
 
 const mapStateToProps = (state) => {
     const {domain, selectedEvent, selectedNode, settings, showUpload, eventList, eventData} = state.dropSerializer;
@@ -154,8 +155,9 @@ class UploadModal extends React.Component {
         const isEvent = /^\d+$/.test(this.props.selectedEvent);
         return (
             <Modal show={this.props.show} onHide={() => this.hide()}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Upload</Modal.Title>
+                    <ModalCloseButton onClick={() => this.hide()}/>
                 </Modal.Header>
                 <Modal.Body>
                     {!this.state.downloading ? (

@@ -7,12 +7,14 @@ import Vibrate from "./Field/Vibrate";
 import Width from "./Field/Width";
 import Theme from "./Field/Theme";
 import _SettingsReduxConnector from "./_SettingsReduxConnector";
+import ModalCloseButton from "../Button/ModalCloseButton";
 
 export default _SettingsReduxConnector.connect(function ({showSettings, show, hide}) {
     return (
         <Modal show={showSettings} onHide={e => hide()}>
-            <Modal.Header closeButton>
+            <Modal.Header>
                 <Modal.Title>Settings</Modal.Title>
+                <ModalCloseButton onClick={() => hide()}/>
             </Modal.Header>
             <Modal.Body>
                 <SubmitterName property={'submitter_name'} />
