@@ -50,7 +50,7 @@ class DropSerializer extends React.Component {
                 <Col md={12} lg={6}>
                     <h1>
                         Drop Serializer
-                        <small> by <a href="https://discord.gg/TKJmuCR">Atlas Academy</a></small>
+                        <small> by <a href="https://atlasacademy.io/discord">Atlas Academy</a></small>
                     </h1>
                 </Col>
 
@@ -65,7 +65,7 @@ class DropSerializer extends React.Component {
                                 <FontAwesomeIcon icon={['fab', 'github']}/>
                             </Button>
                         </a>
-                        <a href="https://discord.gg/TKJmuCR"
+                        <a href="https://atlasacademy.io/discord"
                         className="text-secondary"
                         target="_blank" rel="noopener noreferrer author">
                             <Button variant="outline-secondary">
